@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "144589357225",
+    "firebase_url": "https://stickerpack-54710.firebaseio.com",
+    "project_id": "stickerpack-54710",
+    "storage_bucket": "stickerpack-54710.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:144589357225:android:8d226ceefe61a8bc",
+        "android_client_info": {
+          "package_name": "com.example.veda.stickerpack"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "144589357225-bloa1k6d13ebf3ba5sb9ilab8jea9e2g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.veda.stickerpack",
+            "certificate_hash": "3bf4c65dfaca30b4ae8aad96de2b9c3ed3dc3d36"
+          }
+        },
+        {
+          "client_id": "144589357225-suigad4708da85gflmosqcu1tloq4cd5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhPQR5u2NTNW5GY__SPOTrJcKOsmVWNhM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "144589357225-b163r9phprt0dj1g3bmjki8g1mrfri8l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
