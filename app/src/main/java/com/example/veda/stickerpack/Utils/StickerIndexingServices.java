@@ -1,4 +1,4 @@
-package com.example.veda.stickerpack;
+package com.example.veda.stickerpack.Utils;
 
 import android.content.Context;
 import android.content.Intent;
