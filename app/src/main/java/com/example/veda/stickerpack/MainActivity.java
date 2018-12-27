@@ -1,18 +1,21 @@
 package com.example.veda.stickerpack;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -30,7 +33,35 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                final View dialogView = getLayoutInflater().inflate(R.layout.dialog_add_sticker, null);
+
+                Button selectImg = (Button) dialogView.findViewById(R.id.img);
+                selectImg.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
+                    }
+                });
+
+                Button add = (Button) dialogView.findViewById(R.id.addBtn);
+                add.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        EditText name = (EditText) dialogView.findViewById(R.id.name);
+                        EditText description = (EditText) dialogView.findViewById(R.id.description);
+                        EditText keywords = (EditText) dialogView.findViewById(R.id.keywords);
+
+                        if(name.toString().isEmpty())
+                        {
+                            Toast.makeText(MainActivity.this, "Invalid input~", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+                builder.setView(dialogView);
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
     }
