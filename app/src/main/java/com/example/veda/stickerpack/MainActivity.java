@@ -88,7 +88,18 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.gboard) {
+            String appPackageName = "com.google.android.inputmethod.latin"; //GOOGLE GBOARD package name redirect
+            Intent launchIntent = getPackageManager().getLaunchIntentForPackage(appPackageName);
+            try {
+                startActivity(launchIntent);
+            } catch (Exception ActivityNotFoundException) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setData(Uri.parse("market://details?id=" + appPackageName));
+                startActivity(intent);
+
+            }
             return true;
         }
         return super.onOptionsItemSelected(item);
