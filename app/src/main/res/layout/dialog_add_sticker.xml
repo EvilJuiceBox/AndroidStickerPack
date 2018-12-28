@@ -4,6 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
+    android:paddingHorizontal="10dp"
+    android:paddingVertical="10dp"
+    android:background="@color/grey"
     android:gravity="center">
     <Button
         android:layout_width="100dp"

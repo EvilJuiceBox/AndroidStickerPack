@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -22,6 +23,9 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
     private static final int GET_FROM_GALLERY = 3;
+    private Button selectImgBtn;
+    private Bitmap img;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,15 +33,16 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        img = null;
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 final View dialogView = getLayoutInflater().inflate(R.layout.dialog_add_sticker, null);
-
-                Button selectImg = (Button) dialogView.findViewById(R.id.img);
-                selectImg.setOnClickListener(new View.OnClickListener() {
+                selectImgBtn = (Button) dialogView.findViewById(R.id.img);
+                selectImgBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
@@ -52,9 +57,11 @@ public class MainActivity extends AppCompatActivity {
                         EditText description = (EditText) dialogView.findViewById(R.id.description);
                         EditText keywords = (EditText) dialogView.findViewById(R.id.keywords);
 
-                        if(name.toString().isEmpty())
+                        if(img == null)
                         {
-                            Toast.makeText(MainActivity.this, "Invalid input~", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "No image detected", Toast.LENGTH_SHORT).show();
+                        } else if(name.getText().length() == 0) {
+                            Toast.makeText(MainActivity.this, "Invalid name, please try again.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -94,9 +101,10 @@ public class MainActivity extends AppCompatActivity {
         //Detects request codes
         if(requestCode==GET_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
             Uri selectedImage = data.getData();
-            Bitmap bitmap = null;
             try {
-                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+                Bitmap tempTarget = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+
+                updateImgSelector(tempTarget);
             } catch (FileNotFoundException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -104,6 +112,16 @@ public class MainActivity extends AppCompatActivity {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+        }
+    }
+
+    public void updateImgSelector(Bitmap newImg)
+    {
+        if(newImg != null)
+        {
+            //update two objects in this class when image selected
+            img = newImg;
+            selectImgBtn.setBackground(new BitmapDrawable(getResources(), newImg));
         }
     }
 }
